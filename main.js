@@ -1,16 +1,15 @@
 var fsm = new StateMachine({
-  init: "solid",
+  init: "normal",
   transitions: [
-    { name: "melt", from: "solid", to: "liquid" },
-    { name: "freeze", from: "liquid", to: "solid" },
-    { name: "vaporize", from: "liquid", to: "gas" },
-    { name: "condense", from: "gas", to: "liquid" }
+    { name: "feed", from: "hungry", to: "normal" },
+    { name: "time", from: "normal", to: "hungry" },
+    { name: "longtime", from: "hungry", to: "dead" }
   ],
   methods: {
-    onMelt: function() {
-      console.log("I melted");
-    },
-    onFreeze: function() {
+    onFeed: function() {
+      console.log("Eating");
+    }
+    /* onFreeze: function() {
       console.log("I froze");
     },
     onVaporize: function() {
@@ -18,6 +17,12 @@ var fsm = new StateMachine({
     },
     onCondense: function() {
       console.log("I condensed");
-    }
+    } */
   }
 });
+
+setInterval(() => {
+  console.log(fsm.state);
+  fsm.time();
+  console.log(fsm.state);
+}, 1000);
