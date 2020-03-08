@@ -25,4 +25,5 @@ setInterval(() => {
   console.log(fsm.state);
   fsm.time();
   console.log(fsm.state);
-}, 1000);
+}, 10000);
+/* Set interval as 10 seconds */
