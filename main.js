@@ -33,20 +33,41 @@ var cleanFsm = new StateMachine({
   }
 });
 
-setInterval(() => {
-  console.log(hungryFsm.state);
+const hungryTimer = setInterval(() => {
+  console.log(hungryFsm.state, "hungry");
   hungryFsm.time();
-  console.log(hungryFsm.state);
+  console.log(hungryFsm.state, "hungry");
+  // if (hungryFsm.state === "dead") {
+  //   clearInterval();
+  // }
 }, 3000);
 /* Set interval as 10 seconds */
 
-setInterval(() => {
-  console.log(cleanFsm.state);
+const cleanTimer = setInterval(() => {
+  console.log(cleanFsm.state, "clean");
   cleanFsm.time();
-  console.log(cleanFsm.state);
+  console.log(cleanFsm.state, "clean");
+  // if (cleanFsm.state === "dead") {
+  //   clearInterval();
+  // }
 }, 10000);
 
-setInterval(() => {
+const stateTimer = setInterval(() => {
   const filename = `${hungryFsm.state}-${cleanFsm.state}.gif`;
   document.getElementById("gif").src = `images/${filename}`;
+  if (filename.includes("dead")) {
+    document.getElementById("gif").src = "images/very-angry.png";
+  }
+  gameOver();
 }, 5000);
+
+function gameOver() {
+  if (hungryFsm.state === "dead" && cleanFsm.state === "dead") {
+    console.log("Game Over!");
+    clearInterval(hungryTimer);
+    clearInterval(cleanTimer);
+    clearInterval(stateTimer);
+  }
+}
+
+gameOver();
