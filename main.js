@@ -56,7 +56,7 @@ const stateTimer = setInterval(() => {
   const filename = `${hungryFsm.state}-${cleanFsm.state}.gif`;
   document.getElementById("gif").src = `images/${filename}`;
   if (filename.includes("dead")) {
-    document.getElementById("gif").src = "images/very-angry.png";
+    document.getElementById("gif").src = "images/angry.gif";
   }
   gameOver();
 }, 5000);
@@ -71,3 +71,8 @@ function gameOver() {
 }
 
 gameOver();
+
+const feedBtn = document.getElementById("feed");
+feedBtn.addEventListener("click", function(event) {
+  hungryFsm.feed();
+});
